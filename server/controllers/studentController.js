@@ -177,27 +177,74 @@ const getGrades = async (req, res, next) => {
   }
 };
 
+// ======================== SUBJECTS FOR FEEDBACK ========================
+const getSubjectsWithTeachers = async (req, res, next) => {
+  try {
+    const studentId = req.user.id;
+
+    // Get student's course/semester/section
+    const [[student]] = await pool.query(
+      'SELECT course_id, semester, section FROM students WHERE id = ?',
+      [studentId]
+    );
+
+    if (!student) {
+      return res.status(404).json({ success: false, message: 'Student not found.' });
+    }
+
+    // Get all subjects assigned to this student's course/semester/section with teacher info
+    const [subjects] = await pool.query(`
+      SELECT DISTINCT
+        sub.id   AS subject_id,
+        sub.name AS subject_name,
+        sub.code AS subject_code,
+        t.id     AS teacher_id,
+        t.name   AS teacher_name,
+        sa.semester,
+        sa.section
+      FROM subject_assignments sa
+      JOIN subjects sub ON sa.subject_id = sub.id
+      JOIN teachers t   ON sa.teacher_id = t.id
+      WHERE sa.course_id = ? AND sa.semester = ? AND sa.section = ? AND sa.is_active = 1
+      ORDER BY sub.name
+    `, [student.course_id, student.semester, student.section]);
+
+    res.status(200).json({ success: true, count: subjects.length, data: subjects });
+  } catch (error) {
+    next(error);
+  }
+};
+
 // ======================== FEEDBACK ========================
 const submitFeedback = async (req, res, next) => {
   try {
     const studentId = req.user.id;
     const { subject_id, teacher_id, rating, comment, is_anonymous, academic_year } = req.body;
 
-    if (!subject_id || !teacher_id || !rating || !academic_year) {
-      return res.status(400).json({ success: false, message: 'subject_id, teacher_id, rating, and academic_year are required.' });
+    // teacher_id is now optional — subject_id and rating are required
+    if (!subject_id || !rating || !academic_year) {
+      return res.status(400).json({ success: false, message: 'subject_id, rating, and academic_year are required.' });
     }
 
     if (rating < 1 || rating > 5) {
       return res.status(400).json({ success: false, message: 'Rating must be between 1 and 5.' });
     }
 
-    const [existing] = await pool.query(
-      'SELECT id FROM feedback WHERE student_id = ? AND subject_id = ? AND teacher_id = ? AND academic_year = ?',
-      [studentId, subject_id, teacher_id, academic_year]
-    );
+    const resolvedTeacherId = teacher_id || null;
+
+    // Check for duplicate (same student + subject + teacher + year)
+    let existingQuery, existingParams;
+    if (resolvedTeacherId) {
+      existingQuery = 'SELECT id FROM feedback WHERE student_id = ? AND subject_id = ? AND teacher_id = ? AND academic_year = ?';
+      existingParams = [studentId, subject_id, resolvedTeacherId, academic_year];
+    } else {
+      existingQuery = 'SELECT id FROM feedback WHERE student_id = ? AND subject_id = ? AND teacher_id IS NULL AND academic_year = ?';
+      existingParams = [studentId, subject_id, academic_year];
+    }
+
+    const [existing] = await pool.query(existingQuery, existingParams);
 
     if (existing.length > 0) {
-      // Update feedback
       await pool.query(
         'UPDATE feedback SET rating = ?, comment = ?, is_anonymous = ? WHERE id = ?',
         [rating, comment || null, is_anonymous ? 1 : 0, existing[0].id]
@@ -205,10 +252,9 @@ const submitFeedback = async (req, res, next) => {
       return res.status(200).json({ success: true, message: 'Feedback updated successfully.' });
     }
 
-    // Insert new feedback
     await pool.query(
       'INSERT INTO feedback (student_id, subject_id, teacher_id, rating, comment, is_anonymous, academic_year) VALUES (?, ?, ?, ?, ?, ?, ?)',
-      [studentId, subject_id, teacher_id, rating, comment || null, is_anonymous ? 1 : 0, academic_year]
+      [studentId, subject_id, resolvedTeacherId, rating, comment || null, is_anonymous ? 1 : 0, academic_year]
     );
 
     res.status(201).json({ success: true, message: 'Feedback submitted successfully.' });
@@ -253,6 +299,7 @@ module.exports = {
   getAttendanceDetails,
   getTimetable,
   getGrades,
+  getSubjectsWithTeachers,
   submitFeedback,
   getNotifications,
   markNotificationRead

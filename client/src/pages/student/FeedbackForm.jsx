@@ -4,16 +4,17 @@ import DashboardLayout from '../../components/layout/DashboardLayout';
 import GlassCard from '../../components/common/GlassCard';
 import Loader from '../../components/common/Loader';
 import { toast } from 'react-toastify';
-import { FiStar, FiSend, FiCheck } from 'react-icons/fi';
+import { FiStar, FiSend, FiCheck, FiBook } from 'react-icons/fi';
 import './FeedbackForm.css';
 
 const CURRENT_ACADEMIC_YEAR = (() => {
   const y = new Date().getFullYear();
-  return `${y}-${y + 1}`;
+  const month = new Date().getMonth(); // 0-indexed; academic year starts June
+  return month >= 5 ? `${y}-${y + 1}` : `${y - 1}-${y}`;
 })();
 
 const FeedbackForm = () => {
-  const [subjects, setSubjects] = useState([]);   // student's subjects with teacher info
+  const [subjects, setSubjects] = useState([]);   // [{subject_id, subject_name, subject_code, teacher_id, teacher_name}]
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -21,6 +22,7 @@ const FeedbackForm = () => {
   const [form, setForm] = useState({
     subject_id: '',
     teacher_id: '',
+    teacher_name: '',
     category: 'academic',
     rating: 0,
     comment: '',
@@ -32,16 +34,22 @@ const FeedbackForm = () => {
     const fetchSubjects = async () => {
       try {
         setLoading(true);
-        // Get student's attendance subjects (which include the teacher via assignments)
-        const res = await api.get('/student/attendance');
-        const attData = res.data.data || [];
-        setSubjects(attData);
-        // Also try to prefill subject_id
-        if (attData.length > 0) {
-          setForm(f => ({ ...f, subject_id: String(attData[0].subject_id) }));
+        // Use the new endpoint that returns subjects WITH teacher info
+        const res = await api.get('/student/subjects');
+        const data = res.data.data || [];
+        setSubjects(data);
+        // Pre-select first subject and auto-fill teacher
+        if (data.length > 0) {
+          setForm(f => ({
+            ...f,
+            subject_id: String(data[0].subject_id),
+            teacher_id: String(data[0].teacher_id || ''),
+            teacher_name: data[0].teacher_name || '',
+          }));
         }
       } catch (err) {
-        console.error('Failed to load subjects for feedback:', err);
+        console.error('Failed to load subjects:', err);
+        toast.error('Failed to load subjects. Please try again.');
       } finally {
         setLoading(false);
       }
@@ -49,17 +57,29 @@ const FeedbackForm = () => {
     fetchSubjects();
   }, []);
 
+  // When subject changes, auto-update the teacher
+  const handleSubjectChange = (e) => {
+    const subId = e.target.value;
+    const selected = subjects.find(s => String(s.subject_id) === subId);
+    setForm(f => ({
+      ...f,
+      subject_id: subId,
+      teacher_id: selected ? String(selected.teacher_id || '') : '',
+      teacher_name: selected ? (selected.teacher_name || '') : '',
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.subject_id) { toast.warn('Please select a subject.'); return; }
-    if (form.rating === 0) { toast.warn('Please give a rating (1-5 stars).'); return; }
-    if (!form.comment.trim()) { toast.warn('Please write a comment.'); return; }
+    if (form.rating === 0) { toast.warn('Please give a star rating (1–5).'); return; }
+    if (!form.comment.trim()) { toast.warn('Please write a comment before submitting.'); return; }
 
     setSubmitting(true);
     try {
       await api.post('/student/feedback', {
         subject_id: Number(form.subject_id),
-        teacher_id: Number(form.teacher_id) || null,
+        teacher_id: form.teacher_id ? Number(form.teacher_id) : null,
         rating: form.rating,
         comment: form.comment.trim(),
         is_anonymous: form.is_anonymous,
@@ -68,14 +88,24 @@ const FeedbackForm = () => {
       toast.success('Feedback submitted successfully! Thank you.');
       setSubmitted(true);
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to submit feedback');
+      const msg = err.response?.data?.message || 'Failed to submit feedback. Please try again.';
+      toast.error(msg);
     } finally {
       setSubmitting(false);
     }
   };
 
   const resetForm = () => {
-    setForm({ subject_id: '', teacher_id: '', category: 'academic', rating: 0, comment: '', is_anonymous: false });
+    const first = subjects[0];
+    setForm({
+      subject_id: first ? String(first.subject_id) : '',
+      teacher_id: first ? String(first.teacher_id || '') : '',
+      teacher_name: first ? (first.teacher_name || '') : '',
+      category: 'academic',
+      rating: 0,
+      comment: '',
+      is_anonymous: false,
+    });
     setHover(0);
     setSubmitted(false);
   };
@@ -101,8 +131,12 @@ const FeedbackForm = () => {
         <GlassCard className="form-card">
           {submitted ? (
             <div style={{ textAlign: 'center', padding: '48px 24px' }}>
-              <div style={{ fontSize: '64px', marginBottom: '16px' }}>
-                <FiCheck style={{ color: '#00ff87', background: 'rgba(0,255,135,0.1)', borderRadius: '50%', padding: '12px', boxSizing: 'content-box' }} />
+              <div style={{ marginBottom: '16px' }}>
+                <FiCheck style={{
+                  color: '#00ff87', background: 'rgba(0,255,135,0.1)',
+                  borderRadius: '50%', padding: '12px', fontSize: '48px',
+                  boxSizing: 'content-box'
+                }} />
               </div>
               <h2 style={{ marginBottom: '8px' }}>Feedback Submitted!</h2>
               <p style={{ opacity: 0.6, marginBottom: '24px' }}>Thank you for helping us improve.</p>
@@ -119,28 +153,45 @@ const FeedbackForm = () => {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="feedback-form">
+
               {/* Subject Selection */}
               <div className="form-group">
                 <label>Subject *</label>
                 {subjects.length === 0 ? (
-                  <p style={{ opacity: 0.5, fontStyle: 'italic', fontSize: '0.9rem' }}>
-                    No subjects found — attendance must be marked before feedback can be submitted.
-                  </p>
+                  <div style={{
+                    display: 'flex', alignItems: 'center', gap: '10px',
+                    padding: '16px', borderRadius: '8px',
+                    background: 'rgba(255,100,100,0.08)', border: '1px solid rgba(255,100,100,0.2)',
+                    color: '#ff6584', fontSize: '0.9rem'
+                  }}>
+                    <FiBook />
+                    No subjects found. Your timetable may not be configured yet — contact your administrator.
+                  </div>
                 ) : (
-                  <select
-                    value={form.subject_id}
-                    onChange={e => setForm(f => ({ ...f, subject_id: e.target.value }))}
-                    required
-                  >
+                  <select value={form.subject_id} onChange={handleSubjectChange} required>
                     <option value="">-- Select Subject --</option>
                     {subjects.map(s => (
-                      <option key={s.subject_id} value={s.subject_id}>
+                      <option key={`${s.subject_id}-${s.teacher_id}`} value={s.subject_id}>
                         {s.subject_name} ({s.subject_code})
                       </option>
                     ))}
                   </select>
                 )}
               </div>
+
+              {/* Teacher info (auto-filled, read-only) */}
+              {form.teacher_name && (
+                <div className="form-group">
+                  <label>Teacher</label>
+                  <div style={{
+                    padding: '12px 16px', borderRadius: '8px',
+                    background: 'rgba(108,99,255,0.08)', border: '1px solid rgba(108,99,255,0.2)',
+                    color: '#c0b8ff', fontSize: '0.95rem'
+                  }}>
+                    {form.teacher_name}
+                  </div>
+                </div>
+              )}
 
               {/* Category */}
               <div className="form-group">
@@ -192,7 +243,7 @@ const FeedbackForm = () => {
               </div>
 
               {/* Anonymous toggle */}
-              <div className="form-group" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div className="form-group" style={{ flexDirection: 'row', alignItems: 'center', gap: '10px' }}>
                 <input
                   type="checkbox"
                   id="anon-checkbox"

@@ -17,6 +17,9 @@ router.get('/dashboard', studentController.getDashboardStats);
 router.get('/attendance', studentController.getAttendanceOverview);
 router.get('/attendance/:subject_id', studentController.getAttendanceDetails);
 
+// Subjects with teacher info (for feedback form)
+router.get('/subjects', studentController.getSubjectsWithTeachers);
+
 // Timetable
 router.get('/timetable', studentController.getTimetable);
 
