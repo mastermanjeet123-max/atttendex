@@ -1,0 +1,189 @@
+.reports-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-content h1 {
+  font-size: 28px;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.header-content p {
+  color: var(--text-secondary);
+}
+
+.btn-export {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 240, 255, 0.1);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-export:hover {
+  background: var(--primary-color);
+  color: #000;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+}
+
+.filters-card {
+  padding: 20px;
+}
+
+.filters-container {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 200px;
+}
+
+.filter-group label {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.filter-group select {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  padding: 10px 16px;
+  border-radius: 8px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.filter-group select:focus {
+  border-color: var(--primary-color);
+}
+
+.filter-group select option {
+  background: #1a1a2e;
+  color: white;
+}
+
+.report-table-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.report-table th {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 16px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  border-bottom: 1px solid var(--glass-border);
+  text-align: center;
+}
+
+.report-table td {
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  vertical-align: middle;
+  text-align: center;
+}
+
+.report-table tr:last-child td {
+  border-bottom: none;
+}
+
+.report-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.progress-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+}
+
+.progress-bar-track {
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  position: relative;
+  flex-grow: 1;
+  max-width: 120px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.progress-bar-fill.success {
+  background: var(--success-color, #00ff88);
+  box-shadow: 0 0 8px rgba(0, 255, 136, 0.4);
+}
+
+.progress-bar-fill.danger {
+  background: var(--danger-color, #ff4444);
+  box-shadow: 0 0 8px rgba(255, 68, 68, 0.4);
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-badge.safe {
+  background: rgba(0, 255, 136, 0.1);
+  color: var(--success-color);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+.status-badge.shortage {
+  background: rgba(255, 166, 0, 0.1);
+  color: #ffa600;
+  border: 1px solid rgba(255, 166, 0, 0.2);
+}
+
+.status-badge.critical {
+  background: rgba(255, 68, 68, 0.1);
+  color: var(--danger-color);
+  border: 1px solid rgba(255, 68, 68, 0.2);
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--text-secondary) !important;
+  padding: 32px !important;
+}

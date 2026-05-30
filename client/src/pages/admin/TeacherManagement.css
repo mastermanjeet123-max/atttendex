@@ -1,0 +1,117 @@
+/* ===== Teacher Management Styles ===== */
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.teacher-management {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.teacher-management .page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.teacher-management .page-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #6c63ff, #00d4ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.teacher-management .page-title-icon {
+  color: #6c63ff;
+  -webkit-text-fill-color: #6c63ff;
+}
+
+.teacher-management .page-subtitle {
+  color: #8888aa;
+  margin-top: 6px;
+}
+
+.teacher-management .search-card { padding: 16px 20px; margin-bottom: 20px; }
+.teacher-management .search-input-wrap { display: flex; align-items: center; gap: 12px; }
+.teacher-management .search-icon { color: #8888aa; font-size: 1.1rem; }
+.teacher-management .search-input { flex: 1; background: transparent; border: none; outline: none; color: #e4e4f0; font-size: 0.95rem; padding: 8px 0; }
+.teacher-management .search-input::placeholder { color: #8888aa; }
+.teacher-management .search-clear { background: rgba(255,255,255,0.06); border: none; color: #8888aa; cursor: pointer; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+.teacher-management .search-clear:hover { background: rgba(255,107,107,0.2); color: #ff6b6b; }
+.teacher-management .table-card { padding: 24px; }
+
+.email-cell { display: flex; align-items: center; gap: 6px; font-size: 0.88rem; }
+.cell-icon { color: #8888aa; flex-shrink: 0; }
+.subjects-count { color: #00d4ff; font-weight: 500; font-size: 0.88rem; }
+
+.teacher-management .action-buttons { display: flex; gap: 8px; }
+.teacher-management .action-btn {
+  width: 34px; height: 34px; border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04);
+  color: #8888aa; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s;
+}
+.teacher-management .edit-btn:hover { background: rgba(108,99,255,0.15); border-color: rgba(108,99,255,0.3); color: #6c63ff; }
+.teacher-management .delete-btn:hover { background: rgba(255,107,107,0.15); border-color: rgba(255,107,107,0.3); color: #ff6b6b; }
+.teacher-management .assign-btn:hover { background: rgba(0,212,255,0.15); border-color: rgba(0,212,255,0.3); color: #00d4ff; }
+
+/* Teacher Form */
+.teacher-form { display: flex; flex-direction: column; gap: 20px; }
+.teacher-form .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.teacher-form .form-group { display: flex; flex-direction: column; gap: 8px; }
+.teacher-form .form-label { font-size: 0.85rem; font-weight: 600; color: #8888aa; text-transform: uppercase; letter-spacing: 0.5px; }
+.teacher-form .form-input {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px; padding: 12px 16px; color: #e4e4f0;
+  font-size: 0.95rem; outline: none; transition: all 0.3s; font-family: inherit;
+}
+.teacher-form .form-input:focus { border-color: #6c63ff; box-shadow: 0 0 0 3px rgba(108,99,255,0.15); }
+.teacher-form .form-input::placeholder { color: #666688; }
+.teacher-form .form-actions { display: flex; justify-content: flex-end; gap: 12px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.06); }
+
+/* Assign Form */
+.assign-form { display: flex; flex-direction: column; gap: 20px; }
+.assign-hint { color: #8888aa; font-size: 0.9rem; margin: 0; }
+.subjects-checklist { display: flex; flex-direction: column; gap: 10px; max-height: 350px; overflow-y: auto; padding-right: 8px; }
+.subjects-checklist::-webkit-scrollbar { width: 4px; }
+.subjects-checklist::-webkit-scrollbar-thumb { background: rgba(108,99,255,0.3); border-radius: 4px; }
+
+.subject-check-item {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 16px; border-radius: 12px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  cursor: pointer; transition: all 0.3s;
+}
+.subject-check-item:hover { background: rgba(255,255,255,0.05); }
+.subject-check-item.selected {
+  background: rgba(108,99,255,0.08);
+  border-color: rgba(108,99,255,0.3);
+}
+
+.subject-check-item input[type="checkbox"] {
+  width: 18px; height: 18px; accent-color: #6c63ff; cursor: pointer;
+}
+
+.subject-check-info { display: flex; flex-direction: column; gap: 2px; }
+.subject-check-name { color: #e4e4f0; font-size: 0.95rem; font-weight: 500; }
+.subject-check-code { color: #8888aa; font-size: 0.8rem; }
+
+.assign-form .form-actions { display: flex; justify-content: flex-end; gap: 12px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.06); }
+
+@media (max-width: 768px) {
+  .teacher-form .form-grid { grid-template-columns: 1fr; }
+  .teacher-management .page-header { flex-direction: column; align-items: flex-start; }
+}

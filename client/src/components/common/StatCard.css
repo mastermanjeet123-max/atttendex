@@ -1,0 +1,171 @@
+/* ============================================
+   AttendX StatCard Styles
+   Dashboard stat card with icon, value, trend
+   ============================================ */
+
+.stat-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-6);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-base);
+  cursor: default;
+  animation: fadeInUp 0.4s ease-out both;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+}
+
+.stat-card:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ── Layout ── */
+.stat-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+/* ── Icon ── */
+.stat-card__icon {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  transition: transform var(--transition-base);
+}
+
+.stat-card:hover .stat-card__icon {
+  transform: scale(1.1);
+}
+
+/* Icon color variants */
+.stat-card__icon--accent {
+  background: var(--accent-light);
+  color: var(--accent);
+}
+
+.stat-card__icon--cyan {
+  background: var(--accent-cyan-light);
+  color: var(--accent-cyan);
+}
+
+.stat-card__icon--teal {
+  background: var(--accent-teal-light);
+  color: var(--accent-teal);
+}
+
+.stat-card__icon--gold {
+  background: var(--accent-gold-light);
+  color: var(--accent-gold);
+}
+
+.stat-card__icon--success {
+  background: var(--success-light);
+  color: var(--success);
+}
+
+.stat-card__icon--danger {
+  background: var(--danger-light);
+  color: var(--danger);
+}
+
+.stat-card__icon--warning {
+  background: var(--warning-light);
+  color: var(--warning);
+}
+
+/* ── Trend Badge ── */
+.stat-card__trend {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-full);
+}
+
+.stat-card__trend--up {
+  color: var(--success);
+  background: var(--success-light);
+}
+
+.stat-card__trend--down {
+  color: var(--danger);
+  background: var(--danger-light);
+}
+
+.stat-card__trend--neutral {
+  color: var(--text-muted);
+  background: var(--glass-bg);
+}
+
+/* ── Value ── */
+.stat-card__value {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: var(--space-1);
+  animation: countUp 0.6s ease-out;
+}
+
+/* ── Label ── */
+.stat-card__label {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  font-weight: var(--font-weight-medium);
+}
+
+/* ── Bottom Accent Line ── */
+.stat-card__accent-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.stat-card:hover .stat-card__accent-line {
+  opacity: 1;
+}
+
+.stat-card__accent-line--accent {
+  background: var(--gradient-primary);
+}
+
+.stat-card__accent-line--cyan {
+  background: var(--accent-cyan);
+}
+
+.stat-card__accent-line--teal {
+  background: var(--accent-teal);
+}
+
+.stat-card__accent-line--gold {
+  background: var(--accent-gold);
+}

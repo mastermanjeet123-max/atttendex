@@ -1,0 +1,199 @@
+.mark-attendance-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.attendance-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.bulk-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.actions-label {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.btn-bulk {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.btn-bulk.present {
+  background: rgba(0, 255, 136, 0.1);
+  color: var(--success-color);
+  border-color: rgba(0, 255, 136, 0.2);
+}
+
+.btn-bulk.present:hover {
+  background: var(--success-color);
+  color: #000;
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+}
+
+.btn-bulk.absent {
+  background: rgba(255, 68, 68, 0.1);
+  color: var(--danger-color);
+  border-color: rgba(255, 68, 68, 0.2);
+}
+
+.btn-bulk.absent:hover {
+  background: var(--danger-color);
+  color: #fff;
+  box-shadow: 0 0 15px rgba(255, 68, 68, 0.4);
+}
+
+.btn-save {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: #000;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 240, 255, 0.3);
+}
+
+.btn-save:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 240, 255, 0.4);
+}
+
+.student-list-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.attendance-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.attendance-table th {
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-align: left;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.attendance-table td {
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+
+.attendance-table tr {
+  transition: background-color 0.2s ease;
+}
+
+.attendance-table tr.present {
+  background: rgba(0, 255, 136, 0.02);
+}
+
+.attendance-table tr.absent {
+  background: rgba(255, 68, 68, 0.02);
+}
+
+.attendance-table tr.late {
+  background: rgba(255, 166, 0, 0.02);
+}
+
+.attendance-table tr:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.student-name {
+  font-weight: 500;
+}
+
+/* Custom Radio Buttons */
+.radio-container {
+  display: inline-block;
+  position: relative;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.radio-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.2s ease;
+}
+
+.radio-container:hover input ~ .checkmark {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.radio-container input:checked ~ .checkmark.present {
+  background-color: var(--success-color);
+  border-color: var(--success-color);
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+.radio-container input:checked ~ .checkmark.absent {
+  background-color: var(--danger-color);
+  border-color: var(--danger-color);
+  box-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+}
+
+.radio-container input:checked ~ .checkmark.late {
+  background-color: #ffa600;
+  border-color: #ffa600;
+  box-shadow: 0 0 10px rgba(255, 166, 0, 0.5);
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.radio-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.radio-container .checkmark:after {
+  top: 6px;
+  left: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}

@@ -1,0 +1,123 @@
+.my-attendance-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.attendance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 24px;
+}
+
+.subject-attendance-card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.subject-attendance-card h3 {
+  font-size: 18px;
+  color: var(--text-primary);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 12px;
+  margin: 0;
+}
+
+.attendance-stats {
+  display: flex;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.stat .label {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.stat .value {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.progress-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.percentage {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.percentage.success { color: var(--success-color); }
+.percentage.danger { color: var(--danger-color); }
+
+.progress-bar-bg {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1s ease-in-out;
+}
+
+.progress-bar-fill.success {
+  background: var(--success-color);
+  box-shadow: 0 0 10px var(--success-color);
+}
+
+.progress-bar-fill.danger {
+  background: var(--danger-color);
+  box-shadow: 0 0 10px var(--danger-color);
+}
+
+.prediction-alert {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.prediction-alert.warning {
+  background: rgba(255, 166, 0, 0.1);
+  color: #ffa600;
+  border: 1px solid rgba(255, 166, 0, 0.2);
+}
+
+.prediction-alert.safe {
+  background: rgba(0, 255, 136, 0.1);
+  color: var(--success-color);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+.prediction-alert i {
+  font-size: 18px;
+}

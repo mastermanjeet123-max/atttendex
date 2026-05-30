@@ -1,0 +1,98 @@
+.grade-management-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.subject-selector {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+}
+
+.subject-selector label {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.subject-selector select {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  padding: 10px 16px;
+  border-radius: 8px;
+  outline: none;
+  font-size: 16px;
+  flex-grow: 1;
+  max-width: 300px;
+}
+
+.subject-selector select option {
+  background: #1a1a2e;
+}
+
+.btn-save-grades {
+  margin-left: auto;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: #000;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-save-grades:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 240, 255, 0.4);
+}
+
+.grades-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.grades-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.grades-table th {
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-align: left;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.grades-table td {
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+
+.grade-input {
+  width: 80px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  padding: 8px;
+  border-radius: 6px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.grade-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+}
+
+.total-score {
+  font-weight: bold;
+  color: var(--primary-color);
+}

@@ -1,0 +1,13 @@
+/* ============================================
+   AttendX - Main CSS Entry Point
+   Import order matters for cascading
+   ============================================ */
+
+/* Design System Tokens */
+@import './styles/variables.css';
+
+/* Animation Library */
+@import './styles/animations.css';
+
+/* Global Reset & Base Styles */
+@import './styles/global.css';

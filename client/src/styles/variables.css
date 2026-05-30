@@ -1,0 +1,180 @@
+/* ============================================
+   AttendX Design System - CSS Custom Properties
+   Premium futuristic university platform
+   ============================================ */
+
+:root {
+  /* ── Core Color Palette ── */
+  --primary: #0a0a1a;
+  --primary-light: #121230;
+  --primary-medium: #16163a;
+  --surface: #1a1a3e;
+  --surface-light: #222255;
+  --surface-hover: #2a2a60;
+
+  /* ── Accent Colors ── */
+  --accent: #6c63ff;
+  --accent-hover: #7b73ff;
+  --accent-light: rgba(108, 99, 255, 0.15);
+  --accent-glow: rgba(108, 99, 255, 0.4);
+  --accent-cyan: #00d4ff;
+  --accent-cyan-light: rgba(0, 212, 255, 0.15);
+  --accent-cyan-glow: rgba(0, 212, 255, 0.4);
+  --accent-teal: #00c9a7;
+  --accent-teal-light: rgba(0, 201, 167, 0.15);
+  --accent-gold: #f0c27f;
+  --accent-gold-light: rgba(240, 194, 127, 0.15);
+
+  /* ── Semantic Colors ── */
+  --success: #00e676;
+  --success-light: rgba(0, 230, 118, 0.15);
+  --warning: #ffab40;
+  --warning-light: rgba(255, 171, 64, 0.15);
+  --danger: #ff5252;
+  --danger-light: rgba(255, 82, 82, 0.15);
+  --info: #448aff;
+  --info-light: rgba(68, 138, 255, 0.15);
+
+  /* ── Text Colors ── */
+  --text: #e4e4f0;
+  --text-secondary: #b8b8d0;
+  --text-muted: #8888aa;
+  --text-inverse: #0a0a1a;
+
+  /* ── Glassmorphism ── */
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-bg-hover: rgba(255, 255, 255, 0.07);
+  --glass-bg-active: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-hover: rgba(255, 255, 255, 0.14);
+  --glass-blur: 16px;
+  --glass-blur-heavy: 24px;
+
+  /* ── Gradients ── */
+  --gradient-primary: linear-gradient(135deg, #6c63ff 0%, #00d4ff 100%);
+  --gradient-accent: linear-gradient(135deg, #6c63ff 0%, #a855f7 100%);
+  --gradient-warm: linear-gradient(135deg, #f0c27f 0%, #fc5c7d 100%);
+  --gradient-cool: linear-gradient(135deg, #00c9a7 0%, #00d4ff 100%);
+  --gradient-dark: linear-gradient(180deg, #0a0a1a 0%, #121230 50%, #1a1a3e 100%);
+  --gradient-surface: linear-gradient(135deg, rgba(108, 99, 255, 0.08) 0%, rgba(0, 212, 255, 0.05) 100%);
+  --gradient-sidebar: linear-gradient(180deg, rgba(108, 99, 255, 0.1) 0%, rgba(0, 212, 255, 0.05) 50%, transparent 100%);
+
+  /* ── Typography ── */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+
+  --font-size-xs: 0.7rem;
+  --font-size-sm: 0.8rem;
+  --font-size-base: 0.925rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.15rem;
+  --font-size-xl: 1.35rem;
+  --font-size-2xl: 1.65rem;
+  --font-size-3xl: 2rem;
+  --font-size-4xl: 2.5rem;
+  --font-size-hero: 3.5rem;
+
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.04em;
+  --letter-spacing-wider: 0.08em;
+
+  /* ── Spacing Scale ── */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* ── Border Radius ── */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
+  --radius-full: 9999px;
+
+  /* ── Shadows ── */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.4);
+  --shadow-glow-accent: 0 0 20px rgba(108, 99, 255, 0.3), 0 0 60px rgba(108, 99, 255, 0.1);
+  --shadow-glow-cyan: 0 0 20px rgba(0, 212, 255, 0.3), 0 0 60px rgba(0, 212, 255, 0.1);
+  --shadow-glow-teal: 0 0 20px rgba(0, 201, 167, 0.3);
+  --shadow-glow-gold: 0 0 20px rgba(240, 194, 127, 0.3);
+  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  /* ── Transitions ── */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ── Z-Index Scale ── */
+  --z-base: 1;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-sidebar: 300;
+  --z-navbar: 400;
+  --z-modal-backdrop: 500;
+  --z-modal: 600;
+  --z-toast: 700;
+  --z-tooltip: 800;
+
+  /* ── Layout ── */
+  --sidebar-width: 260px;
+  --sidebar-collapsed-width: 72px;
+  --navbar-height: 64px;
+  --content-max-width: 100%;
+}
+
+/* ── Light Theme Overrides ── */
+[data-theme='light'] {
+  --primary: #f0f2f8;
+  --primary-light: #e8eaf0;
+  --primary-medium: #dde0ea;
+  --surface: #ffffff;
+  --surface-light: #f5f6fa;
+  --surface-hover: #ecedf5;
+
+  --text: #1a1a3e;
+  --text-secondary: #3a3a5e;
+  --text-muted: #7a7a9a;
+  --text-inverse: #ffffff;
+
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-bg-hover: rgba(255, 255, 255, 0.8);
+  --glass-bg-active: rgba(255, 255, 255, 0.9);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-border-hover: rgba(0, 0, 0, 0.14);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.14);
+  --shadow-glow-accent: 0 0 20px rgba(108, 99, 255, 0.15);
+  --shadow-glow-cyan: 0 0 20px rgba(0, 212, 255, 0.15);
+  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+  --gradient-dark: linear-gradient(180deg, #f0f2f8 0%, #e8eaf0 50%, #dde0ea 100%);
+  --gradient-surface: linear-gradient(135deg, rgba(108, 99, 255, 0.05) 0%, rgba(0, 212, 255, 0.03) 100%);
+  --gradient-sidebar: linear-gradient(180deg, rgba(108, 99, 255, 0.06) 0%, rgba(0, 212, 255, 0.03) 50%, transparent 100%);
+}
